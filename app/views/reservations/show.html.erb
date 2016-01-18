@@ -1,0 +1,30 @@
+<h1>Your recent reservation for <%= @reservation.listing.title %></h1>
+
+<% if @reservation.user_id == current_user.id %>
+<ul>
+	<% @reservation.listing.images.each do |x|%>
+		<%= image_tag x.url %>
+	<% end %>
+	<li>Title: <%= @reservation.listing.title %></li>
+	<li>Description: <%= @reservation.listing.description %></li>
+	<li>Location: <%= @reservation.listing.location %></li>
+	<li>Contact email: <%= @reservation.listing.email %></li>
+
+	<h5>Hosted by: <%= @reservation.listing.user.name %></h5>
+	<p>
+		Tags: <% @reservation.listing.features.each do |x| %>
+		<%= link_to "#{x.name}", tag_path(x) %>
+		<% end %>
+	</p>
+</ul>
+
+<h4>Reservation receipt:</h4>
+<ul>
+	<p>Reservation ID: <%= @reservation.id %>
+	<p>Name: <%= @reservation.name %></p>
+	<p>Email: <%= @reservation.email %></p>
+	<p>Contact: <%= @reservation.contact %></p>
+	<p>Start date: <%= @reservation.startdate %></p>
+	<p>End date: <%= @reservation.enddate %></p>
+</ul>
+<% end %>

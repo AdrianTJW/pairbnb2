@@ -1,0 +1,88 @@
+<h1>Reservation for <%= @reservation.listing.title %></h1>
+<ul>
+	<% @reservation.listing.images.each do |x|%>
+		<%= image_tag x.url %>
+	<% end %>
+	<li>Title: <%= @reservation.listing.title %></li>
+	<li>Description: <%= @reservation.listing.description %></li>
+	<li>Location: <%= @reservation.listing.location %></li>
+	<li>Contact email: <%= @reservation.listing.email %></li>
+
+	<h5>Posted by: <%= @reservation.listing.user.name %></h5>
+	<p>
+		Tags: <% @reservation.listing.features.each do |x| %>
+		<%= link_to "#{x.name}", tag_path(x) %>
+		<% end %>
+	</p>
+</ul>
+
+<%= form_for [@listing, @reservation] do |f| %>
+  <div class="text-field">
+    <%= f.label :name %>
+    <%= f.text_field :name, type: 'name' %>
+  </div>
+
+  <div class="text-field">
+    <%= f.label :email %>
+    <%= f.text_field :email, type: 'email' %>
+  </div>
+
+  <div class="text-field">
+    <%= f.label :contact %>
+    <%= f.text_field :contact, type: 'contact' %>
+  </div>
+
+  <div>
+    <%= f.label "start date" %>
+    <%= f.text_field :startdate, placeholder: 'dd/mm/yy', type: 'start date' %>
+  </div>
+
+  <div>
+    <%= f.label "end date" %>
+    <%= f.text_field :enddate, placeholder: 'dd/mm/yy', type: 'end date' %>
+  </div>
+
+  <%= f.hidden_field :listing_id, value: @listing.id %>
+
+  <div class="submit-field">
+    <%= f.submit "Reserve!", data: {confirm: 'Are your details correct?'}%>
+  </div>
+
+  <script>
+  function unavailable(date) {
+    dmy = date.getDate() + "-" + (date.getMonth()+1) + "-" + date.getFullYear();
+    return [$.inArray(dmy, unavailableDates) == -1];
+  }
+    $(function() {
+      unavailableDates = [];
+      $.ajax({
+        url: '/preload',
+        data: {'listing_id': <%= @listing.id %>},
+        dataType: 'json',
+        success: function(data) {
+          $.each(data, function(arrID, arrValue) {
+            for(var d = new Date(arrValue.startdate); d <= new Date(arrValue.enddate); d.setDate(d.getDate() + 1)) {
+            unavailableDates.push($.datepicker.formatDate('d-m-yy', d));
+            }
+          });
+          $('#reservation_startdate').datepicker({
+              dateFormat: 'dd-mm-yy',
+              minDate: 0,
+              beforeShowDay: unavailable,
+              onSelect: function(selected) {
+               $('#reservation_enddate').datepicker("option", "minDate", selected);
+             }
+          });
+          $('#reservation_enddate').datepicker({
+              dateFormat: 'dd-mm-yy',
+              minDate: 0,
+              beforeShowDay: unavailable,
+              onSelect: function(selected) {
+               $('#reservation_startdate').datepicker("option", "maxDate", selected);
+             }
+          });
+        }
+      });  
+    });
+  </script>
+<% end %>

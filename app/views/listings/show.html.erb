@@ -1,0 +1,25 @@
+<h1>Property</h1>
+
+<ul>
+	<% @listing.images.each do |x|%>
+		<a href="<%= x.url %>"><%= image_tag x.url %></a>
+	<% end %>
+	<li>Title: <%= @listing.title %></li>
+	<li>Description: <%= @listing.description %></li>
+	<li>Location: <%= @listing.location %></li>
+	<li>Contact email: <%= @listing.email %></li>
+
+	<h5>Hosted by: <%= @listing.user.name %></h5>
+	<p>
+		Tags: <% @listing.features.each do |x| %>
+		<%= link_to "#{x.name}", tag_path(x) %>
+		<% end %>
+	</p>
+</ul>
+
+<% if current_user.id == @listing.user.id %>
+	<%= link_to 'Delete', listing_path , method: :delete, data: {confirm: 'Are you sure?'} %>
+	<%= link_to 'Edit', edit_listing_path %>
+<% else %>
+	<%= link_to 'Reserve!', new_listing_reservation_path(@listing.id) %>
+<% end %>

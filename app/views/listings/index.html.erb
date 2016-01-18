@@ -1,0 +1,11 @@
+<h1>All Properties</h1>
+
+<% @listings.each do |property| %>
+	<ul>
+		<li>
+
+			<a href="/listings/<%=property.id%>"><%= property.title %> at <%= property.location %></a>
+			<h5>Posted by: <%= property.user.name %></h5>
+		</li>
+	</ul>
+<% end %>

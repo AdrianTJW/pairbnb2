@@ -1,0 +1,11 @@
+<h1>My Reservations</h1>
+<% @reservations.each do |x| %>
+	<ul>
+		<li>
+			<h4>Booking made on: <%= x.created_at %></h4>
+			<%= image_tag x.listing.images[0].thumb %>
+			<a href="/reservations/<%=x.id%>"><%= x.listing.title %> at <%= x.listing.location %></a>
+			<h5>Hosted by: <%= x.listing.user.name %></h5>
+		</li>
+	</ul>
+<% end %>

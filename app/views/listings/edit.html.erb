@@ -1,0 +1,41 @@
+<h1>Your current property details are as follows:</h1>
+
+<ul>
+	<li>Title: <%= @listing.title %></li>
+	<li>Description: <%= @listing.description %></li>
+	<li>Location: <%= @listing.location %></li>
+	<li>Contact email: <%= @listing.email %></li>
+</ul>
+
+<h3>Edit your property details below:</h3>
+
+<%= form_for @listing, url: {action: "update"} do |form| %>
+	<div class="text-field">
+	  <%= form.label :title %>
+	  <%= form.text_field :title, type: 'title' %>
+	</div>
+
+	<div class="field">
+    <%= form.label :tag_list, "Tags (separated by commas)" %>
+    <%= form.text_field :tag_list, type: 'tag' %>
+  </div>
+
+	<div class="text-field">
+	  <%= form.label :description %>
+	  <%= form.text_field :description, type: 'description' %>
+	</div>
+
+	<div class="text-field">
+	  <%= form.label :location %>
+	  <%= form.text_field :location, type: 'location' %>
+	</div>
+
+	<div class="text-field">
+	  <%= form.label :email %>
+	  <%= form.text_field :email, type: 'email' %>
+	</div>
+
+	<div class="submit-field">
+	  <%= form.submit "Update"%>
+	</div>
+<% end %>

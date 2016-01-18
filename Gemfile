@@ -23,6 +23,34 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
+# Gem for authenticating email and password
+gem 'clearance'
+
+# Gem to enable log in using Facebook
+gem 'omniauth-facebook'
+
+# Gem that adds tagging to each field
+gem 'acts-as-taggable-on'
+
+# Gem that allows image upload
+gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
+
+# Gem that resizes images as thumbnail
+gem 'mini_magick'
+
+# Gem for search bar
+gem 'searchkick'
+
+# Gem for jquery
+gem 'jquery-ui-rails'
+
+gem 'bootstrap-sass'
+
+# gem 'braintree'
+
+# # Gem that transfers data from rails to javascript
+# gem 'gon'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

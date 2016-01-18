@@ -1,0 +1,37 @@
+<h1>Post your new property here!</h1>
+
+<%= form_for @listing do |f| %>
+  <div class="text-field">
+    <%= f.label :title %>
+    <%= f.text_field :title, type: 'title' %>
+  </div>
+
+  <div class="field">
+    <%= f.label :tag_list, "Tags (separated by commas)" %>
+    <%= f.text_field :tag_list, type: 'tag' %>
+  </div>
+
+  <div class="text-field">
+    <%= f.label :description %>
+    <%= f.text_field :description, type: 'description' %>
+  </div>
+
+  <div class="text-field">
+    <%= f.label :location %>
+    <%= f.text_field :location, type: 'location' %>
+  </div>
+
+	<div class="text-field">
+    <%= f.label :email %>
+    <%= f.text_field :email, type: 'email' %>
+  </div>
+
+  <div>
+    <%= f.label :images %>
+    <%= f.file_field :images, multiple: true%>
+  </div>
+
+  <div class="submit-field">
+    <%= f.submit %>
+  </div>
+<% end %>

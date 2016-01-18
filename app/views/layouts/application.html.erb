@@ -1,12 +1,44 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Pairbnb2</title>
+  <title>Pairbnb</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css">
 </head>
 <body>
+
+  <h5><a href="/">Pairbnb</a></h5>
+	<% if current_user %>
+    <% if current_user.uid %>
+      <%= image_tag current_user.image_url %>
+    <% else %>
+      <%= image_tag current_user.image_url(:thumb) %>
+    <% end %>
+    Welcome <strong><%= current_user.name %></strong> 
+    <%= button_to 'Sign out', sign_out_path, method: :delete %>
+  <% else %>
+    <%= link_to 'Sign in', sign_in_path %>
+    <%= link_to "Sign in with Facebook", "/auth/facebook" %>
+  <% end %>
+
+  <%= form_tag("/search", method: "post") do %>
+    <%= label_tag :search %>
+    <%= text_field_tag :search %>
+    
+    <div class="submit-field">
+      <%= submit_tag("Search") %>
+    </div>
+  <% end %>
+
+  <div id="flash">
+    <% flash.each do |key, value| %>
+      <div class="flash <%= key %>"><%= value %></div>
+    <% end %>
+  </div>
+
+  
 
 <%= yield %>
 
