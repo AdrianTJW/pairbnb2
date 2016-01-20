@@ -11,6 +11,7 @@ class ReservationsController < ApplicationController
   def create
     @reservation = current_user.reservations.new(reservations_params)
     @listing = Listing.find(params[:reservation][:listing_id])
+    @reservation.update(paid_status: "Not paid")
     if @reservation.save!
       @customer = @reservation.email
       @host = @reservation.listing.email
@@ -19,13 +20,16 @@ class ReservationsController < ApplicationController
       @url = "http://localhost:3000/reservations/#{@reservation.id}"
       ReservationMailer.booking_email(@customer, @host, @reservation_id, @booking, @url).deliver_now
       ReservationMailer.customer_email(@customer, @host, @reservation_id, @booking, @url).deliver_now
-      redirect_to '/'
+      session[:reservation_id] = @reservation.id
+      redirect_to new_transaction_path
     end
   end
 
   def show
     @reservation = Reservation.find_by(id: params[:id])
     @listing = Listing.find_by(params[:listing_id])
+    @price_int = @reservation.listing.price.scan(/\d/).join('').to_i
+    @price = (@reservation.enddate - @reservation.startdate).to_i * @price_int
   end
 
   def edit

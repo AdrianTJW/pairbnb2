@@ -3,7 +3,7 @@
 <% @listings.each do |property| %>
 	<ul>
 		<li>
-
+			<%= image_tag property.images[0].thumb if property.images.any? %>
 			<a href="/listings/<%=property.id%>"><%= property.title %> at <%= property.location %></a>
 			<h5>Posted by: <%= property.user.name %></h5>
 		</li>

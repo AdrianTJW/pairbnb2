@@ -44,12 +44,17 @@ gem 'searchkick'
 # Gem for jquery
 gem 'jquery-ui-rails'
 
+# Gem for datepicker bootstrap, and others
 gem 'bootstrap-sass'
 
-# gem 'braintree'
+# Gem for payment gateway
+gem 'braintree'
 
-# # Gem that transfers data from rails to javascript
-# gem 'gon'
+# Gem for hidden keys and secrets
+gem 'figaro'
+
+# Gem that transfers data from rails application to javascript
+gem 'gon'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

@@ -26,6 +26,11 @@
     <%= f.text_field :email, type: 'email' %>
   </div>
 
+  <div class="text-field">
+    <%= f.label :price_per_night %>
+    <%= f.text_field :price, type: 'price' %>
+  </div>
+
   <div>
     <%= f.label :images %>
     <%= f.file_field :images, multiple: true%>

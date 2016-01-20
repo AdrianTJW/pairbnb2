@@ -16,7 +16,7 @@ class ListingsController < ApplicationController
     @listing = current_user.listings.new(listing_params)
     @listing.feature_list.add(params[:listing][:tag_list])
     @listing.save
-    redirect_to '/'
+    redirect_to root_url, alert: "New listing made!"
   end
 
   def destroy
@@ -46,6 +46,6 @@ class ListingsController < ApplicationController
   private
 
   def listing_params
-    params.require(:listing).permit(:title, :description, :location, :email, :user_id, {images: []})
+    params.require(:listing).permit(:title, :description, :location, :email, :user_id, {images: []}, :price)
   end
 end

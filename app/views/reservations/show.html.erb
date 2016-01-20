@@ -24,6 +24,16 @@
 	<p>Name: <%= @reservation.name %></p>
 	<p>Email: <%= @reservation.email %></p>
 	<p>Contact: <%= @reservation.contact %></p>
+	<p>Total price: RM<%= @price %></p>
+	<% if @reservation.paid_status == "Not paid" %>
+		<p>
+			Pay status: <%= @reservation.paid_status %>
+			<% session[:reservation_id] = @reservation.id %>
+			<%= link_to "Pay now!", new_transaction_path %>
+		</p>
+	<% else %>
+		<p>Pay status: <%= @reservation.paid_status %></p>
+	<% end %>
 	<p>Start date: <%= @reservation.startdate %></p>
 	<p>End date: <%= @reservation.enddate %></p>
 </ul>

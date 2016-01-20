@@ -26,4 +26,8 @@ class User < ActiveRecord::Base
     true
   end
 
+  def has_payment_info?
+    braintree_customer_id
+  end
+
 end
